@@ -1,0 +1,43 @@
+div.home-container {
+/*    border: 1px solid black;*/
+    display: flex;
+    margin-left: 5rem;
+    margin-top: 2.9rem;
+}
+
+div.svg-container {
+/*    border: 1px solid blue;*/
+
+}
+
+div.home-text-container {
+/*    border: 1px solid green;*/
+    display: flex;
+    align-items: center;
+    
+}
+
+div.home-text-container h1 {
+    font-size: 2rem;
+    margin-right: 3.5rem;
+    margin-left: 3.5rem;
+    margin-top: -15rem;
+    text-align: center;
+    letter-spacing: 2px;
+
+}
+
+div.home-text-container span {
+    border: 1px solid black;
+    padding: 1rem;
+    background-color: black;
+    border-radius: 5rem;
+    
+}
+
+div.home-text-container a {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+}
+

@@ -1,0 +1,18 @@
+{% load static %}
+<link rel="stylesheet" type='text/css' href="{% static 'base/css/navbar.css' %}">
+
+<div class="navbars">
+    <div class="nav-child-1">
+        <a href="{% url 'home' %}"><h1> CROP YIELD <br> <span>Prediction </span></h1></a>
+    </div>
+
+    <div class="nav-child-2">
+        <ul>
+            <a href="{% url 'home' %}"> Home </a>
+            <a href="{% url 'upload-files' %}"> Upload file </a>
+            <a href="#"> Predict </a>
+            <a href="#"> Login </a>
+            <a href="#"><span> Sign Up </span></a>
+        </ul>
+    </div>
+</div>
