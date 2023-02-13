@@ -25,13 +25,7 @@ from .forms import UserInputPredictions, CreateUserForm
 @login_required(login_url='login')
 def Dashboard(request):
     template = 'dashboard.html'
-    conn = psycopg2.connect(
-        host="containers-us-west-169.railway.app",
-        database="railway",
-        user="postgres",
-        password="LFWLOpDAOOOSTtDcA7c5",
-        port ="8007"
-    )
+    conn = sqlite3.connect("db.sqlite3")
     data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
     
     # Plot 1
@@ -149,13 +143,7 @@ def Prediction(request):
         )
         UserInputData.save()
 
-        conn = psycopg2.connect(
-            host="containers-us-west-169.railway.app",
-            database="railway",
-            user="postgres",
-            password="LFWLOpDAOOOSTtDcA7c5",
-            port ="8007"
-    )
+        conn = sqlite3.connect("db.sqlite3")
         data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
         df = data.drop(['Domain', 'Area', 'Element', 'Date', 'TypesOfCrops',  'Unit', 'Nutrients', 'Soil', 'Value'], axis=1)
         X = df.iloc[:,:-1]
