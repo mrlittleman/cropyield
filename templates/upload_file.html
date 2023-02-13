@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/upload_file.css' %}" rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<div class="upload-container">
+    <div class="upload-content-container-buttom">
+        <div class="alrt">
+            {% if messages %}
+            {% for message in messages %}
+                <div>
+                    <p class="lead">{{message}}</p>
+                </div>
+            {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </div>
+        <div class="upload-content-1">
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- <input type="file" id="myFile" name="filename"> -->
+                <input class="form-control form-control-sm" id="formFileSm" type="file" name="filename">
+                <input class="btn btn-primary" id="liveAlertBtn" type="submit" value="submit" style="border-radius: 3rem; padding-left: 1rem; padding-right: 1rem; margin-left: 45%; margin-top: 1rem;">
+            </form>
+        </div>
+        
+    </div>
+        
+</div>
+{% endblock %}  

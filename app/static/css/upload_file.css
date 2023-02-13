@@ -1,0 +1,26 @@
+div.upload-content-container-buttom {
+    margin: 5%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    -webkit-border-radius: 14px;
+    border-radius: 16px;
+    width: 60%;
+    margin-left: 20%;
+    background: #fff;
+    -webkit-box-shadow: 12px 12px 25px #ebebeb, -12px -12px 25px #e0e7fd;
+    box-shadow: 12px 12px 25px #ebebeb, -12px -12px 25px #e0e7fd;
+}
+
+div.upload-content-container-buttom {
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+@media only screen and (min-width: 400px) {
+    .btn btn-primary {
+        margin-left: 50%;
+    }
+    
+}

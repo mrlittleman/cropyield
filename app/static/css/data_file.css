@@ -1,0 +1,30 @@
+div.content-container {
+    margin: 5%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    -webkit-border-radius: 14px;
+    border-radius: 16px;
+    background: #fff;
+    -webkit-box-shadow: 12px 12px 25px #ebebeb, -12px -12px 25px #e0e7fd;
+    box-shadow: 12px 12px 25px #ebebeb, -12px -12px 25px #e0e7fd;
+    overflow-x: hidden; /* Adding a horizontal scrollbar */
+}
+
+#header th {
+  background-color: #212529;
+  color: white;
+  width: 80rem;
+  text-align: center;
+  padding: .5rem;
+  border: 1px solid grey;
+}
+
+#header tr td {
+  text-align: center;
+  border: 1px solid grey;
+}
+
+#header tr:nth-child(even){
+  background-color: #f2f2f2;
+}

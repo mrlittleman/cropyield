@@ -1,0 +1,51 @@
+{% extends 'index.html'%}
+{% load static %}
+{% block content %}
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+<link href="{% static 'css/data_file.css' %}" rel="stylesheet" />
+<div class="content-container">
+    <div style="overflow-x:auto;">
+        <table id="header">
+            <tr>
+                <th>Domain</th>
+                <th>Area</th>
+                <th>Element</th>
+                <th>Year</th>
+                <th>Temperatures</th>
+                <th>Dew Points</th>
+                <th>Humidity</th>
+                <th>Wind Speed</th>
+                <th>Pressures</th>
+                <th>Percipitations</th>
+                <th>Date</th>
+                <th>Types Of Crops</th>
+                <th>Unit</th>
+                <th>Value</th>
+                <th>Nutrients</th>
+                <th>Soil</th>
+            </tr>
+            {% for columns in data %}
+                <tr>
+                    <td>{{ columns.Domain }}</td>
+                    <td>{{ columns.Area }}</td>
+                    <td>{{ columns.Element }}</td>
+                    <td>{{ columns.Year}}</td>
+                    <td>{{ columns.Temperatures }}</td>
+                    <td>{{ columns.DewPoints }}</td>
+                    <td>{{ columns.Humidity }}</td>
+                    <td>{{ columns.WindSpeeds}}</td>
+                    <td>{{ columns.Pressures}}</td>
+                    <td>{{ columns.Percipitations}}</td>
+                    <td>{{ columns.Date}}</td>
+                    <td>{{ columns.TypesOfCrops}}</td>
+                    <td>{{ columns.Unit}}</td>
+                    <td>{{ columns.Value}}</td>
+                    <td>{{ columns.Nutrients}}</td>
+                    <td>{{ columns.Soil}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
