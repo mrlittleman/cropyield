@@ -35,7 +35,7 @@ def Dashboard(request):
     # buf.seek(0)
     # plot_data = base64.b64encode(buf.read()).decode('utf-8')
     # context = {'plot_data': plot_data}
-    return render(request, "Hello")
+    return render(request, template)
 
 @login_required(login_url='login')
 def Data(request):
