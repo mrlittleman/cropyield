@@ -19,11 +19,15 @@ from django.contrib import messages
 import csv, io
 import psycopg2
 from .models import CsvUploads
-from django.http import StreamingHttpResponse
 from .forms import UserInputPredictions, CreateUserForm
 
 
-def plot_generator(data):
+@login_required(login_url='login')
+def Dashboard(request):
+    template = 'dashboard.html'
+    conn = sqlite3.connect("db.sqlite3")
+    data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
+    
     # Plot 1
     plt.figure(figsize=(12,5))
     plt.subplot(1, 2, 1)
@@ -31,11 +35,10 @@ def plot_generator(data):
     plt.subplot(1, 2, 2)
     sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2})
     buf1 = BytesIO()
-    plt.savefig(buf1, format='png', dpi=80)
+    plt.savefig(buf1, format='png')
     buf1.seek(0)
     plot1_data = base64.b64encode(buf1.read()).decode('utf-8')
-    yield plot1_data
-
+    
     # Plot 2
     plt.figure(figsize=(12,5))
     plt.subplot(1, 2, 1)
@@ -43,43 +46,28 @@ def plot_generator(data):
     plt.subplot(1, 2, 2)
     sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2})
     buf2 = BytesIO()
-    plt.savefig(buf2, format='png', dpi=80)
+    plt.savefig(buf2, format='png')
     buf2.seek(0)
     plot2_data = base64.b64encode(buf2.read()).decode('utf-8')
-    yield plot2_data
-
+    
     # Plot 3
     plt.figure(figsize=(12,5))
     sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r")
     buf3 = BytesIO()
-    plt.savefig(buf3, format='png', dpi=80)
+    plt.savefig(buf3, format='png')
     buf3.seek(0)
     plot3_data = base64.b64encode(buf3.read()).decode('utf-8')
-    yield plot3_data
-
+    
     # Plot 4
     plt.figure(figsize=(12,5))
     sns.pairplot(data, hue = 'TypesOfCrops')
     buf4 = BytesIO()
-    plt.savefig(buf4, format='png', dpi=80)
+    plt.savefig(buf4, format='png')
     buf4.seek(0)
     plot4_data = base64.b64encode(buf4.read()).decode('utf-8')
-    yield plot4_data
-
-@login_required(login_url='login')
-def Dashboard(request):
-    conn = sqlite3.connect("db.sqlite3")
-    data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
-
-    # Check if required columns are present in data
-    required_columns = ['Temperatures', 'WindSpeeds', 'Humidity', 'TypesOfCrops']
-    if not all(col in data.columns for col in required_columns):
-        messages.error(request, 'Required columns not found in database table')
-        return redirect('home')
-
-    response = StreamingHttpResponse(plot_generator(data), content_type='multipart/x-mixed-replace; boundary=frame')
-    response['Cache-Control'] = 'no-cache'
-    return response
+    
+    context = {'plot1_data': plot1_data, 'plot2_data': plot2_data, 'plot3_data': plot3_data , 'plot4_data': plot4_data}
+    return render(request, template, context)
 
 @login_required(login_url='login')
 def Data(request):
