@@ -51,12 +51,12 @@ def Dashboard(request):
     plot2_data = base64.b64encode(buf2.read()).decode('utf-8')
     
     # Plot 3
-    plt.figure(figsize=(12,5))
-    sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r")
-    buf3 = BytesIO()
-    plt.savefig(buf3, format='png')
-    buf3.seek(0)
-    plot3_data = base64.b64encode(buf3.read()).decode('utf-8')
+    # plt.figure(figsize=(12,5))
+    # sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r")
+    # buf3 = BytesIO()
+    # plt.savefig(buf3, format='png')
+    # buf3.seek(0)
+    # plot3_data = base64.b64encode(buf3.read()).decode('utf-8')
     
     # Plot 4
     plt.figure(figsize=(12,5))
@@ -66,7 +66,7 @@ def Dashboard(request):
     buf4.seek(0)
     plot4_data = base64.b64encode(buf4.read()).decode('utf-8')
     
-    context = {'plot1_data': plot1_data, 'plot2_data': plot2_data, 'plot3_data': plot3_data , 'plot4_data': plot4_data}
+    context = {'plot1_data': plot1_data, 'plot4_data': plot4_data}
     return render(request, template, context)
 
 @login_required(login_url='login')
