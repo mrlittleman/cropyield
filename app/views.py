@@ -25,17 +25,17 @@ from .forms import UserInputPredictions, CreateUserForm
 @login_required(login_url='login')
 def Dashboard(request):
     template = 'dashboard.html'
-    conn = sqlite3.connect("db.sqlite3")
-    data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
+    # conn = sqlite3.connect("db.sqlite3")
+    # data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
     
-    sns.pairplot(data, hue = 'TypesOfCrops')
-    sns.set()
-    buf = BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    plot_data = base64.b64encode(buf.read()).decode('utf-8')
-    context = {'plot_data': plot_data}
-    return render(request, template, context)
+    # sns.pairplot(data, hue = 'TypesOfCrops')
+    # sns.set()
+    # buf = BytesIO()
+    # plt.savefig(buf, format='png')
+    # buf.seek(0)
+    # plot_data = base64.b64encode(buf.read()).decode('utf-8')
+    # context = {'plot_data': plot_data}
+    return render(request, "Hello")
 
 @login_required(login_url='login')
 def Data(request):
