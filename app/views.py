@@ -29,26 +29,26 @@ def Dashboard(request):
     data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
     
     # Plot 1
-    plt.figure(figsize=(12,5))
-    plt.subplot(1, 2, 1)
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
-    plt.subplot(1, 2, 2)
-    sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2})
-    buf1 = BytesIO()
-    plt.savefig(buf1, format='png')
-    buf1.seek(0)
-    plot1_data = base64.b64encode(buf1.read()).decode('utf-8')
+    # plt.figure(figsize=(12,5))
+    # plt.subplot(1, 2, 1)
+    # sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
+    # plt.subplot(1, 2, 2)
+    # sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2})
+    # buf1 = BytesIO()
+    # plt.savefig(buf1, format='png')
+    # buf1.seek(0)
+    # plot1_data = base64.b64encode(buf1.read()).decode('utf-8')
     
     # Plot 2
-    plt.figure(figsize=(12,5))
-    plt.subplot(1, 2, 1)
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
-    plt.subplot(1, 2, 2)
-    sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2})
-    buf2 = BytesIO()
-    plt.savefig(buf2, format='png')
-    buf2.seek(0)
-    plot2_data = base64.b64encode(buf2.read()).decode('utf-8')
+    # plt.figure(figsize=(12,5))
+    # plt.subplot(1, 2, 1)
+    # sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
+    # plt.subplot(1, 2, 2)
+    # sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2})
+    # buf2 = BytesIO()
+    # plt.savefig(buf2, format='png')
+    # buf2.seek(0)
+    # plot2_data = base64.b64encode(buf2.read()).decode('utf-8')
     
     # Plot 3
     # plt.figure(figsize=(12,5))
@@ -66,7 +66,7 @@ def Dashboard(request):
     buf4.seek(0)
     plot4_data = base64.b64encode(buf4.read()).decode('utf-8')
     
-    context = {'plot1_data': plot1_data, 'plot2_data': plot2_data, 'plot4_data': plot4_data}
+    context = {'plot4_data': plot4_data}
     return render(request, template, context)
 
 @login_required(login_url='login')
