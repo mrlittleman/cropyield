@@ -11,6 +11,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 from io import BytesIO
+import os
 import base64
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -25,17 +26,16 @@ from .forms import UserInputPredictions, CreateUserForm
 @login_required(login_url='login')
 def Dashboard(request):
     template = 'dashboard.html'
-    # conn = sqlite3.connect("db.sqlite3")
-    # data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
-    
-    # sns.pairplot(data, hue = 'TypesOfCrops')
-    # sns.set()
-    # buf = BytesIO()
-    # plt.savefig(buf, format='png')
-    # buf.seek(0)
-    # plot_data = base64.b64encode(buf.read()).decode('utf-8')
-    # context = {'plot_data': plot_data}
-    return render(request, template)
+    conn = sqlite3.connect("db.sqlite3")
+    data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
+    sns.pairplot(data)
+    sns.set()
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    plot_data = base64.b64encode(buf.read()).decode('utf-8')
+    context = {'plot_data': plot_data}
+    return render(request, template, context)
 
 @login_required(login_url='login')
 def Data(request):
