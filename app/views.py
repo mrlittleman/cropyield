@@ -29,45 +29,34 @@ def Dashboard(request):
     data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
     
     # Plot 1
-    plt.figure(figsize=(12,5))
-    plt.subplot(1, 2, 1)
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
-    plt.subplot(1, 2, 2)
-    sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2})
-    buf1 = BytesIO()
-    plt.savefig(buf1, format='png')
-    buf1.seek(0)
-    plot1_data = base64.b64encode(buf1.read()).decode('utf-8')
+    fig, axes = plt.subplots(1, 2, figsize=(12,5))
+    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2}, ax=axes[0])
+    sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2}, ax=axes[1])
+    plot1_data = get_image_data(fig)
     
     # Plot 2
-    plt.figure(figsize=(12,5))
-    plt.subplot(1, 2, 1)
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2})
-    plt.subplot(1, 2, 2)
-    sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2})
-    buf2 = BytesIO()
-    plt.savefig(buf2, format='png')
-    buf2.seek(0)
-    plot2_data = base64.b64encode(buf2.read()).decode('utf-8')
+    fig, axes = plt.subplots(1, 2, figsize=(12,5))
+    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2}, ax=axes[0])
+    sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2}, ax=axes[1])
+    plot2_data = get_image_data(fig)
     
     # Plot 3
-    # plt.figure(figsize=(12,5))
-    # sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r")
-    # buf3 = BytesIO()
-    # plt.savefig(buf3, format='png')
-    # buf3.seek(0)
-    # plot3_data = base64.b64encode(buf3.read()).decode('utf-8')
+    fig, ax = plt.subplots(figsize=(12,5))
+    sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r", ax=ax)
+    plot3_data = get_image_data(fig)
     
     # Plot 4
-    plt.figure(figsize=(12,5))
-    sns.pairplot(data, hue = 'TypesOfCrops')
-    buf4 = BytesIO()
-    plt.savefig(buf4, format='png')
-    buf4.seek(0)
-    plot4_data = base64.b64encode(buf4.read()).decode('utf-8')
+    fig = sns.pairplot(data, hue = 'TypesOfCrops')
+    plot4_data = get_image_data(fig.fig)
     
     context = {'plot1_data': plot1_data, 'plot4_data': plot4_data}
     return render(request, template, context)
+
+def get_image_data(fig):
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return base64.b64encode(buf.read()).decode('utf-8')
 
 @login_required(login_url='login')
 def Data(request):
