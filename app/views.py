@@ -28,7 +28,7 @@ def Dashboard(request):
     template = 'dashboard.html'
     conn = sqlite3.connect("db.sqlite3")
     data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
-    sns.pairplot(data)
+    sns.pairplot(data, hue = 'TypesOfCrops')
     sns.set()
     buf = BytesIO()
     plt.savefig(buf, format='png')
