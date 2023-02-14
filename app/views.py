@@ -41,15 +41,15 @@ def Dashboard(request):
     plot2_data = get_image_data(fig)
     
     # Plot 3
-    fig, ax = plt.subplots(figsize=(12,5))
-    sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r", ax=ax)
-    plot3_data = get_image_data(fig)
+    # fig, ax = plt.subplots(figsize=(12,5))
+    # sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r", ax=ax)
+    # plot3_data = get_image_data(fig)
     
     # Plot 4
     fig = sns.pairplot(data, hue = 'TypesOfCrops')
     plot4_data = get_image_data(fig.fig)
     
-    context = {'plot1_data': plot1_data, 'plot4_data': plot4_data}
+    context = {'plot1_data': plot1_data,'plot2_data': plot2_data, 'plot4_data': plot4_data}
     return render(request, template, context)
 
 def get_image_data(fig):
