@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
     'livereload',
-    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
