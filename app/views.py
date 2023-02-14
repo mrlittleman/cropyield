@@ -28,35 +28,14 @@ def Dashboard(request):
     conn = sqlite3.connect("db.sqlite3")
     data = pd.read_sql("SELECT * FROM app_csvuploads", conn)
     
-    # Plot 1
-    fig, axes = plt.subplots(1, 2, figsize=(12,5))
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2}, ax=axes[0])
-    sns.distplot(data['WindSpeeds'],color="green",bins=15,hist_kws={'alpha':0.2}, ax=axes[1])
-    plot1_data = get_image_data(fig)
-    
-    # Plot 2
-    fig, axes = plt.subplots(1, 2, figsize=(12,5))
-    sns.distplot(data['Temperatures'],color="purple",bins=15,hist_kws={'alpha':0.2}, ax=axes[0])
-    sns.distplot(data['Humidity'],color="green",bins=15,hist_kws={'alpha':0.2}, ax=axes[1])
-    plot2_data = get_image_data(fig)
-    
-    # Plot 3
-    # fig, ax = plt.subplots(figsize=(12,5))
-    # sns.countplot(y='TypesOfCrops',data=data, palette="plasma_r", ax=ax)
-    # plot3_data = get_image_data(fig)
-    
-    # Plot 4
-    fig = sns.pairplot(data, hue = 'TypesOfCrops')
-    plot4_data = get_image_data(fig.fig)
-    
-    context = {'plot1_data': plot1_data,'plot2_data': plot2_data, 'plot4_data': plot4_data}
-    return render(request, template, context)
-
-def get_image_data(fig):
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
+    sns.pairplot(data, hue = 'TypesOfCrops')
+    sns.set()
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
     buf.seek(0)
-    return base64.b64encode(buf.read()).decode('utf-8')
+    plot_data = base64.b64encode(buf.read()).decode('utf-8')
+    context = {'plot_data': plot_data}
+    return render(request, template, context)
 
 @login_required(login_url='login')
 def Data(request):
